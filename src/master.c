@@ -241,7 +241,7 @@ print_progress(uperf_shm_t *shm, newstats_t prev)
 		pns.end_time = GETHRTIME();
 		pns.count -= prev.count;
 		(void) strlcpy(pns.name, prev.name, sizeof (pns.name));
-		print_summary(&pns, 1);
+		print_summary(&pns, 0);
 	}
 }
 
@@ -359,7 +359,7 @@ new_control_connection(group_t *g, char *host)
 		p = p->next;
 	}
 	/* Not found, create a new one */
-	p = create_protocol(PROTOCOL_TCP, host, MASTER_PORT, MASTER);
+	p = create_protocol(PROTOCOL_TCP, host, options.master_port, MASTER);
 	if (p != NULL) {
 		/* Try connecting */
 		if (p->connect(p, NULL) == 0) {

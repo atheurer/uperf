@@ -113,14 +113,9 @@ print_summary(newstats_t *ns, int same_line)
 		msg[window_width() - 1] = '\0';
 		printf("\r%s\r", msg);
 	}
-	printf("%-8.8s ", ns->name);
-	PRINT_NUM(ns->size, 8);
-	printf("/%7.2f(s) = ", time/1.0e+9);
-	PRINT_NUMb(throughput, 12);
-	printf(" %10.0fop/s ", ops);
-	if (same_line == 0)
-		(void) printf("\n");
-	(void) fflush(stdout);
+    printf("timestamp_ms:%.4f name:%s nr_bytes:%lu nr_ops:%lu\n",
+           ns->end_time/1.0e+6, ns->name, ns->size, ns->count);
+    (void) fflush(stdout);
 }
 
 static void

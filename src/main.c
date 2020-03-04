@@ -152,10 +152,11 @@ init_options(int argc, char **argv)
 	options.copt |= ERROR_STATS;
 	options.copt |= PACKET_STATS;
 
+    options.master_port = MASTER_PORT;
 	options.interval = 1000;	/* Collect throughput every 1second */
 	oserver = oclient = ofile = 0;
 
-	while ((ch = getopt(argc, argv, "i:hngm:stTfkpaeE:vVX:")) != EOF) {
+	while ((ch = getopt(argc, argv, "P:i:hngm:stTfkpaeE:vVX:")) != EOF) {
 		switch (ch) {
 #ifdef USE_CPC
 		case 'E':
@@ -254,6 +255,12 @@ init_options(int argc, char **argv)
 					uperf_fatal("Cannot open file\n");
 			} else {
 				uperf_fatal("Please specify file \n");
+			}
+			break;
+		case 'P':
+			if (optarg) {
+				options.master_port = (int)
+					string_to_int(optarg);
 			}
 			break;
 		case 'i':
